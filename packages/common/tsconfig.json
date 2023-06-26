@@ -1,0 +1,19 @@
+
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "CommonJS",
+        "outDir": "./dist/common",
+        "strict": true,
+        "sourceMap": true,
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "esModuleInterop": true,
+        "isolatedModules": true
+    },
+    "exclude": [
+        "dist",
+        "node_modules"
+    ]
+}

@@ -1,0 +1,23 @@
+{
+  "devDependencies": {
+    "lerna": "^7.0.2"
+  },
+  "dependencies": {
+    "fp-ts": "^2.16.0",
+    "io-ts": "^2.2.20"
+  },
+  "scripts": {
+    "start": "lerna run start",
+    "test": "lerna run test",
+    "new-version": "lerna version --conventional-commits --yes",
+    "diff": "lerna diff",
+    "build": "lerna run build",
+    "dev": "lerna run dev"
+  },
+  "workspaces": [
+    "packages/common",
+    "packages/backend",
+    "packages/frontend",
+    "packages/frontend2"
+  ]
+}

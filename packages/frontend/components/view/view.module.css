@@ -1,0 +1,36 @@
+.view_section {
+    clear: both;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .view_section ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #29506d;
+  }
+  
+  .view_section li {
+    float: left;
+    display: block;
+    padding: 16px;
+    color: #ffdbaa;
+    text-align: center;
+    text-decoration: none;
+  }
+  
+  .view_section li:active {
+    
+    background-color: #042037;
+    color: #d4bc6a;
+  }
+.view_section li:hover {
+    
+  background-color: #718ea4;
+  color: #553100;
+}
