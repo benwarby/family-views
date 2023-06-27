@@ -4,6 +4,7 @@ import {
   TabInfoType,
 } from "@family-views/common";
 import SystemView from "./system/system-view";
+import ViewMarkdownTab from "./view-markdown-tab";
 
 export default function ViewTab({
   tabInfo,
@@ -31,7 +32,7 @@ export default function ViewTab({
     case "markdown":
       const markdownContentInfo = tabInfo as MarkdownTabInfoType;
       //TODO: Render it from markdown instead of the text.
-      tabContent = <>{markdownContentInfo.markdownContent}</>;
+      tabContent = <><ViewMarkdownTab tab={markdownContentInfo}></ViewMarkdownTab></>;
       break;
 
     default:
