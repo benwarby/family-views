@@ -14,7 +14,7 @@ export default function setupViewDataEndpoints(app:Express) {
             ViewInfoId: '1',
             displayName: 'View 1',
             description: 'Something descriptive',
-            tabIds: ['1']
+            tabIds: ['1', '3']
         },
         {
             ViewInfoId: '2',
@@ -29,14 +29,14 @@ export default function setupViewDataEndpoints(app:Express) {
             tabInfoId: '1',
             name: 'First tab',
             description: 'This is the first tab',
-            markdownContent: 'first content',
+            markdownContent: '# Hello, *world*!',
             tagType: 'markdown'
         },
         {
             tabInfoId: '2',
             name: 'Second tab',
             description: 'This is the second tab',
-            markdownContent: 'second content',
+            markdownContent: `Just a link: https://reactjs.com.`,
             tagType: 'markdown'
         }
     ]
@@ -45,7 +45,19 @@ export default function setupViewDataEndpoints(app:Express) {
         tabInfoId: '3',
         name: 'Third tab',
         description: 'This is the third tab',
-        markdownContent: 'Here\'s something you can see for content.',
+        markdownContent: `A paragraph with *emphasis* and **strong importance**.
+
+        > A block quote with ~strikethrough~ and a URL: https://reactjs.org.
+        
+        * Lists
+        * [ ] todo
+        * [x] done
+        
+        A table:
+        
+        | a | b |
+        | - | - |
+        `,
         tagType: 'markdown'
     }
 
