@@ -1,4 +1,5 @@
 {
+  "name": "@family-views/frontend",
   "private": true,
   "description": "An example project for NextAuth.js with Next.js",
   "repository": "https://github.com/nextauthjs/next-auth-example.git",

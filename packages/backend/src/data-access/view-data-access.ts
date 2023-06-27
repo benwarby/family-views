@@ -5,7 +5,7 @@ import { pipe } from 'fp-ts/function';
 import lodash = require('lodash');
 import { ViewInfo } from '@family-views/common/src/dto/view-info';
 import * as t from "io-ts"
-import { DynamicTabInfoType, SystemContentTabInfoType, TabType } from '@family-views/common/src/dto/tab-info';
+import { MarkdownTabInfoType, SystemContentTabInfoType, TabInfoType } from '@family-views/common/src/dto/tab-info';
 import { ViewTabIdInfoType, ViewTabInfo } from '@family-views/common/src/dto/view-tab-info';
 
 export default function setupViewDataEndpoints(app:Express) {
@@ -24,29 +24,29 @@ export default function setupViewDataEndpoints(app:Express) {
         }
     ];
 
-    const tabs:TabType[] = [
+    const tabs:TabInfoType[] = [
         {
             tabInfoId: '1',
             name: 'First tab',
             description: 'This is the first tab',
-            content: 'first content',
-            tagType: 'dynamic'
+            markdownContent: 'first content',
+            tagType: 'markdown'
         },
         {
             tabInfoId: '2',
             name: 'Second tab',
             description: 'This is the second tab',
-            content: 'second content',
-            tagType: 'dynamic'
+            markdownContent: 'second content',
+            tagType: 'markdown'
         }
     ]
 
-    const tabInfo3:DynamicTabInfoType = {
+    const tabInfo3:MarkdownTabInfoType = {
         tabInfoId: '3',
         name: 'Third tab',
         description: 'This is the third tab',
-        content: 'Here\'s something you can see for content.',
-        tagType: 'dynamic'
+        markdownContent: 'Here\'s something you can see for content.',
+        tagType: 'markdown'
     }
 
     const tabInfo4:SystemContentTabInfoType = {

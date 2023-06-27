@@ -8,6 +8,6 @@ export type { ViewTabInfoType } from './dto/view-tab-info'
 
 export type {GetViewResponseType} from './api/get-view'
 
-export type { SystemContentTabInfoType, DynamicTabInfoType, TabType, TabInfo } from './dto/tab-info'
+export type { SystemContentTabInfoType, MarkdownTabInfoType, TabInfoType } from './dto/tab-info'
 
 // export { SystemContentTabInfo } from './dto/tab-info'

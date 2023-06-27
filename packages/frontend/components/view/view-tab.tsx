@@ -1,14 +1,14 @@
 import {
-  DynamicTabInfoType,
+  MarkdownTabInfoType,
   SystemContentTabInfoType,
-  TabType,
+  TabInfoType,
 } from "@family-views/common";
 import SystemView from "./system/system-view";
 
 export default function ViewTab({
   tabInfo,
 }: {
-  tabInfo: TabType | null | undefined;
+  tabInfo: TabInfoType | null | undefined;
 }) {
   if (!tabInfo) {
     return <>No tab.</>;
@@ -28,9 +28,10 @@ export default function ViewTab({
       );
       break;
 
-    case "dynamic":
-      const dynamicContentInfo = tabInfo as DynamicTabInfoType;
-      tabContent = <>{dynamicContentInfo.content}</>;
+    case "markdown":
+      const markdownContentInfo = tabInfo as MarkdownTabInfoType;
+      //TODO: Render it from markdown instead of the text.
+      tabContent = <>{markdownContentInfo.markdownContent}</>;
       break;
 
     default:
