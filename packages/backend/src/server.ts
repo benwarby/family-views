@@ -16,10 +16,6 @@ if (!wss.isInitialized()) {
 
 setupDataAccessEndpoints(app)
 
-// app.use(cors({
-//     origin: ['http://localhost:3002', 'http://localhost:3002/']
-// }))
-
 //start our server
 server.listen(process.env.PORT || 8999, () => {
     console.log(`Server started on port ${process.env.PORT || 8999} :)`);

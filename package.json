@@ -17,7 +17,6 @@
   "workspaces": [
     "packages/common",
     "packages/backend",
-    "packages/frontend",
-    "packages/frontend2"
+    "packages/frontend"
   ]
 }

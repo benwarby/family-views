@@ -1,5 +1,5 @@
 import { Application, Request, Response, Express } from 'express';
-import { ViewTabInfoType, ViewInfoType, GetViewResponseType } from '@family-views/common';
+import { ViewTabInfoType, ViewInfoType, GetViewResponseType, GetTabsResponseType } from '@family-views/common';
 import * as either from 'fp-ts/Either';
 import { pipe } from 'fp-ts/function';
 import lodash = require('lodash');
@@ -9,6 +9,7 @@ import { MarkdownTabInfoType, SystemContentTabInfoType, TabInfoType } from '@fam
 import { ViewTabIdInfoType, ViewTabInfo } from '@family-views/common/src/dto/view-tab-info';
 
 export default function setupViewDataEndpoints(app:Express) {
+    //TODO: Put this into a database.
     const views:ViewTabIdInfoType[] = [
         {
             ViewInfoId: '1',
@@ -111,6 +112,54 @@ export default function setupViewDataEndpoints(app:Express) {
                 return either.left(new Error('View not found'))
             }
             )
-        res.send(JSON.stringify(result, null, 4));
+        res.send(JSON.stringify(result, null, 4)).status(either.isRight(result) ? 200 : 500);
+    })
+
+    //TODO: Possibly move this out of this class.
+    app.get('/tab-info', (req: Request, res: Response): void => {
+        const result:GetTabsResponseType = pipe(req, (request) => {
+            return tabs.map(tabInfo => {
+                const info:TabInfoType = tabInfo
+                return info
+            })
+        }, (tabsInfo:TabInfoType[]) => {
+            return either.right(tabsInfo)
+        })
+        res.status(200).json({result: result})
+    })
+    // app.put('/view/update-tab/:viewId/:tabId/:checked', (req:Request, res:Response):void => {
+    app.put('/view/update-tab', (req:Request, res:Response):void => {
+        console.log(req.query)
+        const viewId:string = req.query.viewId as string;
+        const tabId = req.query.tabId as string;
+        const checked:boolean = req.query.checked === 'true';
+        console.log(tabId)
+        console.log(checked)
+        try {
+            const result = pipe(viewId, 
+                (viewId) => views.filter(v => v.ViewInfoId === viewId)[0],
+                (view) => {
+                    console.log(JSON.stringify(view))
+                    const currentlyInView = view.tabIds.includes(tabId)
+                    // const t = view.tabIds.filter
+                    const i = view.tabIds.indexOf(tabId);
+                    console.log(i)
+                    if (checked && i < 0) {
+                        view.tabIds.push(tabId)
+                        return "added"
+                    }
+                    if (!checked && i > -1) {
+                        view.tabIds = view.tabIds.filter(e => e != tabId)
+                        return "removed"
+                    }
+                    return "nothing to do"
+                }
+            )
+            console.log(result)
+            // console.log(JSON.stringify(views))
+            res.send(result).status(200);
+        } catch (e) {
+            res.send(`Error ${e}`).status(500)
+        }
     })
 }
