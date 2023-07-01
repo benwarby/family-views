@@ -1,0 +1,39 @@
+.tab_bar {
+  clear: both;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.tab_bar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #29506d;
+}
+
+.tab_bar li {
+  float: left;
+  display: block;
+  padding: 16px;
+  color: #ffdbaa;
+  text-align: center;
+  text-decoration: none;
+}
+
+.tab_bar li:active {
+  background-color: #042037;
+  color: #d4bc6a;
+}
+.tab_bar li:hover {
+  background-color: #718ea4;
+  color: #553100;
+}
+
+.tab_bar .active_tab {
+  background-color: #042037;
+  color: #d4bc6a;
+}
