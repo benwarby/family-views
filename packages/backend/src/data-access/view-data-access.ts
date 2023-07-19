@@ -8,11 +8,13 @@ import {
   UpdateTabInViewAPIEndpoint,
   GetViewAPIEndpoint,
   GetAllViewsAPIEndpoint,
+  SaveViewAPIEndpoint,
 } from "@family-views/common";
 import * as either from "fp-ts/Either";
 import lodash = require("lodash");
 import { DataAccessHandler, DataRepository } from "./data-access";
 export type ViewRepository = DataRepository<ViewTabIdInfoType> 
+import { randomUUID } from "crypto";
 
 function getAllViewsHandler() {
   return new DataAccessHandler(
@@ -128,6 +130,26 @@ function getDeleteViewHandler() {
   );
 }
 
+function getSaveViewHandler() {
+  return new DataAccessHandler(SaveViewAPIEndpoint, async (dependencies, req) => {
+    if (!req.body.view) {
+      return { body: either.left(new InvalidRequestError(null)) };
+    }
+    try {
+      const view = req.body.view;
+      if (!view.viewInfoId) {
+        view.viewInfoId = randomUUID()
+      }
+      await dependencies.viewRepository.update(view)
+      return {body: either.right({})}
+    } catch (e) {
+      console.log(e)
+      return { body: either.left(new ServerError(null)) };
+    }
+    return { body: either.left(new UnknownError(null)) };
+  })
+}
+
 export function getViewDataAccessHandlers() {
   let handlers: DataAccessHandler<any, any>[] = [];
 
@@ -135,6 +157,7 @@ export function getViewDataAccessHandlers() {
   handlers.push(getViewHandler());
   handlers.push(getDeleteViewHandler());
   handlers.push(getUpdateTabInViewHandler());
+  handlers.push(getSaveViewHandler())
 
   return handlers;
 }

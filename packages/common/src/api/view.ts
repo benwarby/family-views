@@ -46,3 +46,14 @@ export type UpdateTabInViewRequest = {
 }
 export type UpdateTabInViewResponse = Empty
 export const UpdateTabInViewAPIEndpoint = new APIEndpoint<UpdateTabInViewRequest, UpdateTabInViewResponse>(UpdateTabInViewEndpoint)
+
+
+export const SaveViewEndpoint:FamilyViewsEndpoint = {
+    endpointOperation: OperationEnum.CREATE,
+    path: '/view'
+}
+export type SaveViewEndpointRequest = {
+    view: ViewTabIdInfoType
+}
+export type SaveViewEndpointResponse = Empty
+export const SaveViewAPIEndpoint = new APIEndpoint<SaveViewEndpointRequest, SaveViewEndpointResponse>(SaveViewEndpoint)
