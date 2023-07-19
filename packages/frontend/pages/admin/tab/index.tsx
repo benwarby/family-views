@@ -67,7 +67,7 @@ export default function TabsAdmin() {
       const href: string = `/admin/tab/edit/${tabInfo.tabInfoId}`;
       tabElements.push(
         <>
-          <li className={styles.tabItem} key={`tab_tabInfo.tabInfoId`}>
+          <li className={styles.tabItem} key={`tab_${tabInfo.tabInfoId}`}>
             {tabInfo.name} - {tabInfo.tagType}
             <Link href={href}>Edit</Link>
             <span onClick={deleteTab} data-tab-id={tabInfo.tabInfoId}>
