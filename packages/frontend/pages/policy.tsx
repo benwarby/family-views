@@ -1,8 +1,8 @@
-import Layout from "../components/layout"
+import RootLayout from "../components/layout";
 
 export default function PolicyPage() {
   return (
-    <Layout>
+    <RootLayout>
       <p>
         This is an example site to demonstrate how to use{" "}
         <a href="https://next-auth.js.org">NextAuth.js</a> for authentication.
@@ -27,6 +27,6 @@ export default function PolicyPage() {
         is not passed to any third party services, other than via SMTP or OAuth
         for the purposes of authentication.
       </p>
-    </Layout>
-  )
+    </RootLayout>
+  );
 }

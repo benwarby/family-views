@@ -19,8 +19,12 @@
     "Lluis Agusti <hi@llu.lu>"
   ],
   "dependencies": {
+    "@uiw/react-markdown-editor": "^5.11.1",
+    "@uiw/react-markdown-preview": "^4.1.13",
+    "@uiw/react-md-editor": "^3.23.3",
     "next": "latest",
     "next-auth": "latest",
+    "next-remove-imports": "^1.0.11",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^8.0.7"
@@ -28,6 +32,7 @@
   "devDependencies": {
     "@types/node": "^18.16.2",
     "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.6",
     "typescript": "^5.0.4"
   }
 }

@@ -1,49 +1,77 @@
 import {
   MarkdownTabInfoType,
-  SystemContentTabInfoType,
+  GoogleCalendarTabInfoType,
+  GoogleDocTabInfoType,
   TabInfoType,
+  GetTabAPIEndpoint,
 } from "@family-views/common";
-import SystemView from "./system/system-view";
-import ViewMarkdownTab from "./view-markdown-tab";
+import ViewMarkdownTab from "./tab/view-markdown-tab";
+import ViewGoogleCalendarTab from "./tab/view-google-calendar-tab";
+import ViewGoogleDocTab from "./tab/view-google-doc-tab";
+import { useEffect, useState } from "react";
+import { callApiEndpoint } from "../../data-access/api-access";
+import * as either from "fp-ts/Either";
 
 export default function ViewTab({
-  tabInfo,
+  tabId,
 }: {
-  tabInfo: TabInfoType | null | undefined;
+  tabId: string | null | undefined;
 }) {
-  if (!tabInfo) {
-    return <>No tab.</>;
-  }
+  const [content, setContent] = useState<JSX.Element>(<>Tab not found.</>);
 
-  let tabContent: JSX.Element = <>Tab not found.</>;
+  const updateContent = (tabInfo: TabInfoType) => {
+    switch (tabInfo.tagType) {
+      case "google-calendar":
+        setContent(
+          <>
+            <ViewGoogleCalendarTab
+              tab={tabInfo as GoogleCalendarTabInfoType}
+            ></ViewGoogleCalendarTab>{" "}
+          </>
+        );
+        break;
+      case "google-doc":
+        setContent(
+          <>
+            <ViewGoogleDocTab
+              tab={tabInfo as GoogleDocTabInfoType}
+            ></ViewGoogleDocTab>{" "}
+          </>
+        );
+        break;
 
-  switch (tabInfo.tagType) {
-    case "system":
-      const systemContentInfo = tabInfo as SystemContentTabInfoType;
-      tabContent = (
-        <>
-          <SystemView
-            systemContent={systemContentInfo.systemContent}
-          ></SystemView>{" "}
-        </>
-      );
-      break;
+      case "markdown":
+        //TODO: Render it from markdown instead of the text.
+        setContent(
+          <>
+            <ViewMarkdownTab
+              tab={tabInfo as MarkdownTabInfoType}
+            ></ViewMarkdownTab>
+          </>
+        );
+        break;
 
-    case "markdown":
-      const markdownContentInfo = tabInfo as MarkdownTabInfoType;
-      //TODO: Render it from markdown instead of the text.
-      tabContent = <><ViewMarkdownTab tab={markdownContentInfo}></ViewMarkdownTab></>;
-      break;
+      default:
+        setContent(<>It's unknown content.</>);
+        break;
+    }
+  };
+  useEffect(() => {
+    console.log(`TabID: ${tabId}`);
+    if (!tabId) {
+      setContent(<>Tab info not found.</>);
+    } else {
+      callApiEndpoint(GetTabAPIEndpoint, { tabId: tabId }).then((result) => {
+        const body = result.body;
+        if (either.isLeft(body)) {
+          console.log(`Error ${body.left}`);
+        } else {
+          const tab: TabInfoType = body.right;
+          updateContent(tab);
+        }
+      });
+    }
+  }, [tabId]);
 
-    default:
-      tabContent = <>It's unknown content.</>;
-      break;
-  }
-
-  return (
-    <>
-      {/* <p>{tabInfo ? tabInfo.description : "Tab not found"}</p> */}
-      {tabContent}
-    </>
-  );
+  return <>{content}</>;
 }

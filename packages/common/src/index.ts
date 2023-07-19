@@ -4,14 +4,15 @@ export type {BaseMessageType} from './messages/base-message'
 
 export type { ViewInfoType } from './dto/view-info'
 
-export type { ViewTabInfoType } from './dto/view-tab-info'
+export type { ViewTabIdInfoType } from './dto/view-tab-info'
 
-export type {GetViewResponseType} from './api/get-view'
+export type { GoogleCalendarTabInfoType, GoogleDocTabInfoType, MarkdownTabInfoType, TabInfoType,  BaseTabInfoType, SavedTabInfoType} from './dto/tab-info'
 
-export type { SystemContentTabInfoType, MarkdownTabInfoType, TabInfoType, } from './dto/tab-info'
+export * from './dto/tab-info'
 
-export type { GetTabsResponseType } from './api/get-tabs'
+export * from './api/endpoint'
 
-export { TabInfo } from './dto/tab-info'
+export * from './api/errors'
 
-// export { SystemContentTabInfo } from './dto/tab-info'
+export * from './api/tab'
+export * from './api/view'
