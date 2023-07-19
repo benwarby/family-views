@@ -89,13 +89,13 @@ class WebsocketServer {
     if (this.wss == null) {
       throw new Error("Websocket server is not initialized");
     }
-    this.wss.clients.forEach((ws: WebSocket) => {
-      const extWs = ws as ExtWebSocket;
+    this.wss.clients.forEach((value, key, set) => {
+      const extWs = value as ExtWebSocket;
 
-      if (!extWs.isAlive) return ws.terminate();
+      if (!extWs.isAlive) return value.terminate();
 
       extWs.isAlive = false;
-      ws.ping(null, undefined);
+      value.ping(null, undefined);
     });
   }
 

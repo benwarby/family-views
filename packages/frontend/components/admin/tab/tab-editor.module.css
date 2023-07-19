@@ -1,0 +1,9 @@
+.preview_area {
+    
+    float: left;
+    width: 100%;
+    min-height: 75px;
+    outline: none;
+    resize: none;
+    border: 1px solid black;
+}

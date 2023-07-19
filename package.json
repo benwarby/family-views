@@ -12,7 +12,8 @@
     "new-version": "lerna version --conventional-commits --yes",
     "diff": "lerna diff",
     "build": "lerna run build",
-    "dev": "lerna run dev"
+    "dev": "lerna run dev",
+    "local-dynamo": "cd lib && cd dynamo && java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -port 8005"
   },
   "workspaces": [
     "packages/common",

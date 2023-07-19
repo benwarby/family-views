@@ -1,33 +1,24 @@
-import {
-  GetViewResponseType,
-  ViewTabInfoType,
-} from "@family-views/common";
+import { GetViewAPIEndpoint, ViewTabIdInfoType } from "@family-views/common";
 import React, { useEffect, useState } from "react";
 import * as either from "fp-ts/Either";
 import ViewTabSelector from "./view-tab-selector";
+import { callApiEndpoint } from "../../../data-access/api-access";
 
 export default function ViewEditor({ viewId }: { viewId: string }) {
-  const [viewInfo, setViewInfo] = useState<ViewTabInfoType | null>(null);
+  const [viewInfo, setViewInfo] = useState<ViewTabIdInfoType | null>(null);
 
   const getUpdatedView = async () => {
     if (!viewId) {
       return;
     }
-    const url: string = `/api/view/${viewId}`;
-    fetch(url, {
-      method: "GET",
-    })
-      .then((result) => {
-        return result.json();
-      })
-      .then((result: GetViewResponseType) => {
-        if (either.isRight(result)) {
-          let view: ViewTabInfoType = result.right;
-          setViewInfo(view);
-        } else {
-          //TODO: Display error.
-        }
-      });
+    callApiEndpoint(GetViewAPIEndpoint, { viewId: viewId }).then((result) => {
+      const body = result.body;
+      if (either.isRight(body)) {
+        setViewInfo(body.right);
+      } else {
+        console.log(body.left);
+      }
+    });
   };
 
   useEffect(() => {
@@ -43,9 +34,13 @@ export default function ViewEditor({ viewId }: { viewId: string }) {
       <h1>Edit view {viewId}</h1>
       {viewInfo?.displayName}
       <br />
-      {/* <TabsSelector tabs={tabsInfo} updateChecked={updateChecked}></TabsSelector> */}
       <p>hello</p>
-      <ViewTabSelector view={viewInfo} viewUpdated={() => {getUpdatedView()}}></ViewTabSelector>
+      <ViewTabSelector
+        view={viewInfo}
+        viewUpdated={() => {
+          getUpdatedView();
+        }}
+      ></ViewTabSelector>
     </>
   );
 }
