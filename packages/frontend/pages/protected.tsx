@@ -1,40 +1,40 @@
-import { useState, useEffect } from "react"
-import { useSession } from "next-auth/react"
-import Layout from "../components/layout"
-import AccessDenied from "../components/access-denied"
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import RootLayout from "../components/layout";
+import AccessDenied from "../components/access-denied";
 
 export default function ProtectedPage() {
-  const { data: session } = useSession()
-  const [content, setContent] = useState()
+  const { data: session } = useSession();
+  const [content, setContent] = useState();
 
   // Fetch content from protected route
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("/api/examples/protected")
-      const json = await res.json()
+      const res = await fetch("/api/examples/protected");
+      const json = await res.json();
       if (json.content) {
-        setContent(json.content)
+        setContent(json.content);
       }
-    }
-    fetchData()
-  }, [session])
+    };
+    fetchData();
+  }, [session]);
 
   // If no session exists, display access denied message
   if (!session) {
     return (
-      <Layout>
+      <RootLayout>
         <AccessDenied />
-      </Layout>
-    )
+      </RootLayout>
+    );
   }
 
   // If session exists, display content
   return (
-    <Layout>
+    <RootLayout>
       <h1>Protected Page</h1>
       <p>
         <strong>{content ?? "\u00a0"}</strong>
       </p>
-    </Layout>
-  )
+    </RootLayout>
+  );
 }

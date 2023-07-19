@@ -1,20 +1,23 @@
 import styles from "./view-tabs.module.css";
 
-import { TabInfoType } from "@family-views/common";
+export type ViewTabsData = {
+  tabInfoId: string;
+  name: string;
+};
 
 export default function ViewTabs({
   tabInfo,
   currentTabId,
   setCurrentTabId,
 }: {
-  tabInfo: TabInfoType[];
+  tabInfo: ViewTabsData[];
   currentTabId: string;
   setCurrentTabId: (tabId: string) => void;
 }) {
   let clickItem = (tabId: string) => {
     setCurrentTabId(tabId);
   };
-  let tabs = tabInfo.map((tab: TabInfoType) => {
+  let tabs = tabInfo.map((tab: ViewTabsData) => {
     let className: string =
       currentTabId === tab.tabInfoId ? styles.active_tab : "";
     return (

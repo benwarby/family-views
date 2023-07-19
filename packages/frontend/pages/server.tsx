@@ -1,16 +1,16 @@
-import { getServerSession } from "next-auth/next"
-import { authOptions } from "./api/auth/[...nextauth]"
-import Layout from "../components/layout"
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "./api/auth/[...nextauth]";
+import RootLayout from "../components/layout";
 
-import type { GetServerSidePropsContext } from "next"
-import { useSession } from "next-auth/react"
+import type { GetServerSidePropsContext } from "next";
+import { useSession } from "next-auth/react";
 
 export default function ServerSidePage() {
-  const { data: session } = useSession()
+  const { data: session } = useSession();
   // As this page uses Server Side Rendering, the `session` will be already
   // populated on render without needing to go through a loading stage.
   return (
-    <Layout>
+    <RootLayout>
       <h1>Server Side Rendering</h1>
       <p>
         This page uses the <strong>getServerSession()</strong> method in{" "}
@@ -30,8 +30,8 @@ export default function ServerSidePage() {
         render.
       </p>
       <pre>{JSON.stringify(session, null, 2)}</pre>
-    </Layout>
-  )
+    </RootLayout>
+  );
 }
 
 // Export the `session` prop to use sessions with Server Side Rendering
@@ -40,5 +40,5 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     props: {
       session: await getServerSession(context.req, context.res, authOptions),
     },
-  }
+  };
 }

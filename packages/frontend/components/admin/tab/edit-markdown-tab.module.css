@@ -1,0 +1,12 @@
+
+
+.textinput {
+    float: left;
+    width: 100%;
+    min-height: 150px;
+    outline: none;
+    resize: none;
+    border: 1px solid grey;
+    overflow: scroll;
+}
+
