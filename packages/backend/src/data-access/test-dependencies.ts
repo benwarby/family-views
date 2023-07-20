@@ -131,12 +131,14 @@ export const testViewRepository: ViewRepository = (function () {
       viewInfoId: "1",
       displayName: "View 1",
       description: "Something descriptive",
+      tabTransitionInSeconds: 30,
       tabIds: ["1", "3"],
     },
     {
       viewInfoId: "2",
       displayName: "View 2",
       description: "Something else",
+      tabTransitionInSeconds: 30,
       tabIds: ["1", "2", "4", "5"],
     },
   ];

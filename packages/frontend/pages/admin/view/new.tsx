@@ -7,6 +7,7 @@ export default function NewView() {
         viewInfoId:'',
         displayName: '',
         description: '',
+        tabTransitionInSeconds: 0,
         tabIds: []
     }
     return (<><ViewEditor viewToEdit={view}></ViewEditor></>)

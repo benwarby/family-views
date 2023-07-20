@@ -1,4 +1,5 @@
 import { DataAccessDependencies } from "../data-access/dependencies";
+import { testTabRepository, testViewRepository } from "../data-access/test-dependencies";
 import TabTable from "./dynamodb/TabTable";
 import ViewTable from "./dynamodb/ViewTable";
 import { DynamoDBClientConfig } from "@aws-sdk/client-dynamodb";

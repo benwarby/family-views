@@ -14,9 +14,12 @@ export default function ViewPage({
 }) {
   const [currentTabId, setCurrentTabId] = useState("");
   const [tabData, setTabData] = useState<ViewTabsData[]>([]);
+  const [timer, setTimer] = useState<NodeJS.Timer|null>(null);
+  const [timerInterval] = useState<number>(viewInfo?.tabTransitionInSeconds ?? 0);
 
   const updateCurrentTab = (tabId: string) => {
     setCurrentTabId(tabId);
+    // console.log(`Tag updated to ${currentTabId}, should be ${tabId}`)
   };
 
   const getTabData = async (tabId: string) => {
@@ -46,14 +49,47 @@ export default function ViewPage({
     setTabData(tabData);
 
     if (!currentTabId) {
-      console.log(`Setting current tab: ${tabData[0].tabInfoId}`);
-      updateCurrentTab(tabData[0].tabInfoId);
+      const tabId = tabData[0].tabInfoId;
+      console.log(`Setting current tab: ${tabId}`);
+      updateCurrentTab(tabId);
     }
   };
 
   useEffect(() => {
     updateTabData();
   }, [viewInfo]);
+
+  useEffect(() => {
+    if (timer) {
+      clearInterval(timer)
+      setTimer(null)
+    }
+    if (viewInfo && viewInfo.tabTransitionInSeconds && viewInfo.tabTransitionInSeconds > 0) {
+      const t:NodeJS.Timer = setInterval(() => {
+        console.log('time')
+        if (viewInfo && viewInfo.tabIds.length > 1) {
+          const currentIndex = viewInfo.tabIds.indexOf(currentTabId)
+          console.log(`${currentTabId} - ${currentIndex}`)
+          if (currentIndex > viewInfo.tabIds.length - 2) {
+            console.log('Updating current tab to first tab.')
+            updateCurrentTab(viewInfo.tabIds[0])
+          } else {
+            console.log('updating current tab to next tab.')
+            updateCurrentTab(viewInfo.tabIds[currentIndex+1])
+          }
+        }
+      }, viewInfo.tabTransitionInSeconds * 1000)
+      setTimer(t)
+    }
+  }, [timerInterval, currentTabId])
+
+  // useEffect(() => {
+  //   const interval:NodeJS.Timer = setInterval(() => {
+  //     // setTime(new Date());
+  //   }, 1000);
+
+  //   return () => clearInterval(interval);
+  // }, []);
 
   return (
     <div className={styles.view_section}>
