@@ -241,6 +241,27 @@ export default function ViewEditor({
           }}
         ></input>
         <br />
+        <label>Tab Transition in seconds (0 = no automatic Transition): </label>
+        <input
+          type="number"
+          min="0"
+          max="360"
+          id="tabTransitionInSeconds"
+          name="tabTransitionInSeconds"
+          defaultValue={view?.tabTransitionInSeconds}
+          onChange={(e) => {
+            if (!view) {
+              console.log("no view");
+              return;
+            }
+            viewDispatch({
+              action: ActionType.UPDATE,
+              fieldName: "tabTransitionInSeconds",
+              value: e.target.value,
+            });
+          }}
+        ></input>
+        <br />
         {tabListItems}
         <br />
         <button id="saveButton" type="submit">
